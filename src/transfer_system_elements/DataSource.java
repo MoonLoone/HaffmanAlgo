@@ -6,9 +6,7 @@ public class DataSource {
     String text;
     public DataSource(String textForEncode){
         text = textForEncode;
-    }
-
-    public void encode(){
+        System.out.println("Source text is: \n"+text+ "\n");
         CoderChanel.encodeText(text);
     }
 }
