@@ -9,7 +9,6 @@ public class Node {
         this.ch = ch;
         this.freq = freq;
     }
-
     public Node(char ch, int freq, Node left, Node right) {
         this.ch = ch;
         this.freq = freq;
