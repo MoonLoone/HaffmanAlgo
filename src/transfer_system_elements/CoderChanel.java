@@ -3,11 +3,12 @@ package transfer_system_elements;
 import huffman_algorithm_elements.Huffman;
 import huffman_algorithm_elements.Node;
 
+import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
 
 public abstract class CoderChanel {
-    public static void encodeText(String text){
+    public static void encodeText(String text, Path pathResult){
        Node root = Huffman.buildHuffmanTree(text);
        Map<Character, String> huffmanCode = new HashMap<>();
        Huffman.encode(root, "", huffmanCode);
@@ -17,6 +18,6 @@ public abstract class CoderChanel {
             sb.append(huffmanCode.get(text.charAt(i)));
         }
 
-       TransferChanel.transferEncodeText(huffmanCode, sb, root);
+       TransferChanel.transferEncodeText(huffmanCode, sb, root, pathResult);
     }
 }

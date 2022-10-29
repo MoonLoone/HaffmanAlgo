@@ -1,0 +1,26 @@
+Source text is: 
+Hello 1234!!@@]
+Huffman Codes are : 
+@ 100
+  1010
+1 0010
+! 011
+2 1110
+3 0011
+4 000
+e 1111
+H 1100
+l 010
+] 1101
+o 1011
+
+
+Binary symbols count: 53
+Zeros count: 25 Ones count: 28
+Average binary code: 3.6666666666666665
+
+Encoded text is: 
+11001111010010101110100010111000110000110111001001101
+
+Decoded text is: 
+Hello 1234!!@@]
