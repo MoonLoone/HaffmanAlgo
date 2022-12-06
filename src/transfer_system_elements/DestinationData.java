@@ -8,13 +8,24 @@ import java.util.Map;
 
 public abstract class DestinationData {
 
-    public static void showResults(String decodedText, Path path){
+    public static void showResults(String decodedText, Path path, String startText){
+
+        int matches = 0;
+        int minLength = Math.min(startText.length(), decodedText.length());
+        for (int i = 0; i<minLength;i++){
+            if (decodedText.charAt(i) == startText.charAt(i)) matches++;
+        }
+
+        Path encodedTextPath = Path.of("decoded.txt");
         try {
-            FileWriter writer = new FileWriter(path.toString(),true);
-            writer.append("\nDecoded text is: \n"+decodedText+ "\n");
+            Files.delete(encodedTextPath);
+            Files.createFile(encodedTextPath);
+            FileWriter writer = new FileWriter(encodedTextPath.toString(),true);
+            writer.append(""+decodedText+ "\n");
             writer.flush();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+
     }
 }

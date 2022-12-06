@@ -9,12 +9,12 @@ import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 
 public class DataSource {
-    public DataSource(String textForEncode, Path pathResult){
+    public DataSource(String textForEncode, Path pathResult, double P){
         try {
             Files.writeString(pathResult,"Source text is: \n"+ textForEncode + "\n", StandardCharsets.UTF_8);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        CoderChanel.encodeText(textForEncode, pathResult);
+        CoderChanel.encodeText(textForEncode, pathResult, P, textForEncode);
     }
 }

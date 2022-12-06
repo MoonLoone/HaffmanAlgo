@@ -8,16 +8,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 public abstract class CoderChanel {
-    public static void encodeText(String text, Path pathResult){
+    public static void encodeText(String text, Path pathResult, double P, String textForEncode){
        Node root = Huffman.buildHuffmanTree(text);
-       Map<Character, String> huffmanCode = new HashMap<>();
+       Map<String, String> huffmanCode = new HashMap<>();
        Huffman.encode(root, "", huffmanCode);
 
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < text.length(); i++) {
-            sb.append(huffmanCode.get(text.charAt(i)));
+        for (int i = 0; i < text.length()-2; i = i+2) {
+            sb.append(huffmanCode.get(text.substring(i,i+2)));
         }
-
-       TransferChanel.transferEncodeText(huffmanCode, sb, root, pathResult);
+       TransferChanel.transferEncodeText(huffmanCode, sb, root, pathResult, P, textForEncode);
     }
 }

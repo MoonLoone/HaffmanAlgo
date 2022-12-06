@@ -11,16 +11,18 @@ public class Main {
     public static void main(String[] args) {
         Path path = Path.of("myFile.txt");
         String text = "";
+        double P = 0.5;
         Path pathResult = Path.of("myResult.txt");
         try {
             File file = new File(path.toString());
             InputStreamReader reader = new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8);
             BufferedReader bufferedReader = new BufferedReader(reader);
             text = bufferedReader.readLine();
-            Files.delete(pathResult);            Files.createFile(pathResult);
+            Files.delete(pathResult);
+            Files.createFile(pathResult);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        DataSource dataSource = new DataSource(text,pathResult);
+        DataSource dataSource = new DataSource(text,pathResult, P);
     }
 }

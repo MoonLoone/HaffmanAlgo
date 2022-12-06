@@ -14,15 +14,28 @@ import java.util.Set;
 
 public abstract class TransferChanel {
 
-    public static void transferEncodeText(Map<Character, String> huffmanCode, StringBuilder encodedText, Node root, Path pathResult){
+    public static void transferEncodeText(Map<String, String> huffmanCode, StringBuilder encodedText,
+                                          Node root, Path pathResult, double P, String textForEncode){
 
         StringBuilder huffmanCodes = new StringBuilder();
-        for (Map.Entry<Character, String> entry : huffmanCode.entrySet()) {
+        for (Map.Entry<String, String> entry : huffmanCode.entrySet()) {
             huffmanCodes.append(entry.getKey()).append(" ").append(entry.getValue()).append("\n");
         }
 
+        for (int i=0;i<encodedText.length();i++){
+            if (Math.random() <= P){
+                switch (encodedText.charAt(i)) {
+                    case '1' -> {
+                        encodedText.replace(i, i+1, "0");
+                    }
+                    case '0' -> encodedText.replace(i, i+1, "1");
+                }
+
+            }
+        }
+
         int size = 0;
-        for (Map.Entry<Character, String> entry : huffmanCode.entrySet()) {
+        for (Map.Entry<String, String> entry : huffmanCode.entrySet()) {
             size += entry.getValue().length();
         }
         double averageBinaryCode = (double)size / huffmanCode.size();
@@ -41,6 +54,6 @@ public abstract class TransferChanel {
             throw new RuntimeException(e);
         }
 
-        DecoderChanel.decodeText(encodedText, root, pathResult);
+        DecoderChanel.decodeText(encodedText, root, pathResult, textForEncode);
     }
 }

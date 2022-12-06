@@ -6,9 +6,8 @@ import java.util.PriorityQueue;
 
 public class Huffman {
 
-    private Map<Character, String> savedHuffman = new HashMap<>();
 
-    public static void encode(Node root, String str, Map<Character, String> huffmanCode) {
+    public static void encode(Node root, String str, Map<String, String> huffmanCode) {
         if (root == null) return;
         if (root.left == null && root.right == null) {
             huffmanCode.put(root.ch, str);
@@ -31,23 +30,27 @@ public class Huffman {
 
 
     public static Node buildHuffmanTree(String text) {
-        Map<Character, Integer> freq = new HashMap<>();
-        for (int i = 0; i < text.length(); i++) {
-            if (!freq.containsKey(text.charAt(i))) {
-                freq.put(text.charAt(i), 0);
+        Map<String, Integer> freq = new HashMap<>();
+        StringBuilder subText = new StringBuilder(text);
+        if (subText.length() % 2 == 1) subText.append(" ");
+        for (int i = 0; i < subText.length()-1; i = i+2) {
+            if (!freq.containsKey(subText.substring(i, i+2))) {
+                freq.put(subText.substring(i, i+2), 0);
             }
-            freq.put(text.charAt(i), freq.get(text.charAt(i)) + 1);
+            freq.put(subText.substring(i, i+2), freq.get(subText.substring(i, i+2)) + 1);
         }
+
         PriorityQueue<Node> pq = new PriorityQueue<>((l, r) -> l.freq - r.freq);
-        for (Map.Entry<Character, Integer> entry : freq.entrySet()) {
+        for (Map.Entry<String, Integer> entry : freq.entrySet()) {
             pq.add(new Node(entry.getKey(), entry.getValue()));
         }
         while (pq.size() != 1) {
             Node left = pq.poll();
             Node right = pq.poll();
             int sum = left.freq + right.freq;
-            pq.add(new Node('\0', sum, left, right));
+            pq.add(new Node("\u0000", sum, left, right));
         }
+
         Node root = pq.peek();
         return root;
     }
